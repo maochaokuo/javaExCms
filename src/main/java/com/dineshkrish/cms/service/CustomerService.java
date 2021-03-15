@@ -1,15 +1,18 @@
 package com.dineshkrish.cms.service;
 
 import com.dineshkrish.cms.model.Customer;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+
+@Component
 public class CustomerService {
     private int customerIdCount = 1;
     private List<Customer> customerList=new CopyOnWriteArrayList<>();
     public Customer addCustomer(Customer customer){
-        customer.setCustomerId(customerIdCount);;
+        customer.setCustomerId(customerIdCount);
         customerList.add(customer);
         customerIdCount++;
         return customer;
@@ -22,12 +25,12 @@ public class CustomerService {
                 .stream()
                 .filter(c -> c.getCustomerId() == customerId)
                 .findFirst()
-                .get();
+                .orElse(null);
     }
     public Customer updateCustomer(int customerId, Customer customer)
     {
         customerList
-                .stream()
+                //.stream()
                 .forEach(c -> {
                     if(c.getCustomerId()==customerId){
                         c.setCustomerFirstName(customer.getCustomerFirstName());
@@ -39,11 +42,11 @@ public class CustomerService {
                 .stream()
                 .filter(c -> c.getCustomerId()==customerId)
                 .findFirst()
-                .get();
+                .orElse(null);
     }
     public void deleteCustomer(int customerId){
         customerList
-                .stream()
+                //.stream()
                 .forEach(c -> {
                     if (c.getCustomerId()==customerId){
                         customerList.remove(c);

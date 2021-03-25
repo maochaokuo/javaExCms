@@ -1,11 +1,13 @@
 package com.dineshkrish.cms.service;
 
 import com.dineshkrish.cms.dao.CustomerDAO;
+import com.dineshkrish.cms.exception.CustomerNotFoundException;
 import com.dineshkrish.cms.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CustomerService {
@@ -20,7 +22,10 @@ public class CustomerService {
         return customerDAO.findAll();
     }
     public Customer getCustomer(int customerId){
-        return customerDAO.findById(customerId).orElse(null);
+        Optional<Customer> optionalCustomer = customerDAO.findById(customerId);
+        if (!optionalCustomer.isPresent())
+            throw new CustomerNotFoundException("Customer record is not available...");
+        return optionalCustomer.get();
     }
     public Customer updateCustomer(int customerId, Customer customer)
     {

@@ -29,11 +29,12 @@ public class CustomerService {
 //        return customerList;
     }
     public Customer getCustomer(int customerId){
-        return customerList
-                .stream()
-                .filter(c -> c.getCustomerId() == customerId)
-                .findFirst()
-                .orElse(null);
+        return customerDAO.findById(customerId).orElse(null);
+//        return customerList
+//                .stream()
+//                .filter(c -> c.getCustomerId() == customerId)
+//                .findFirst()
+//                .orElse(null);
     }
     public Customer updateCustomer(int customerId, Customer customer)
     {
@@ -53,12 +54,13 @@ public class CustomerService {
                 .orElse(null);
     }
     public void deleteCustomer(int customerId){
-        customerList
-                //.stream()
-                .forEach(c -> {
-                    if (c.getCustomerId()==customerId){
-                        customerList.remove(c);
-                    }
-                });
+        customerDAO.deleteById(customerId);
+//        customerList
+//                //.stream()
+//                .forEach(c -> {
+//                    if (c.getCustomerId()==customerId){
+//                        customerList.remove(c);
+//                    }
+//                });
     }
 }

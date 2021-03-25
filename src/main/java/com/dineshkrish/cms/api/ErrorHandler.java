@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class ErrorHandler extends ResponseEntityExceptionHandler {
 
-    @Value("${api_doc_url2}")
+    @Value("${cms.testvariable1}")
     private String details;
 
     @ExceptionHandler(CustomerNotFoundException.class)
